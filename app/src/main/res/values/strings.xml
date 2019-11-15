@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">RoomExample</string>
+    <string name="main_app_bar_title">Students</string>
+</resources>
