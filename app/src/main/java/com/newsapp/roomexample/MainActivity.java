@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         adapter=new StudentsAdapter(studentList,getApplicationContext());
 
-        recyclerView=findViewById(R.id.recyclerViewMain);
+        recyclerView=activityMainBinding.layoutContentMain.recyclerViewMain;
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

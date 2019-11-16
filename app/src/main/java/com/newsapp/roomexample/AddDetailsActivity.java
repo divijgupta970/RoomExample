@@ -1,6 +1,7 @@
 package com.newsapp.roomexample;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
@@ -39,13 +40,15 @@ public class AddDetailsActivity extends AppCompatActivity {
             String name=student.getName();
             String email=student.getEmail();
             String country=student.getCountry();
-            if(!name.isEmpty()&&!email.isEmpty()&&!country.isEmpty()){
-                Intent intent = new Intent();
-                intent.putExtra("name",name);
-                intent.putExtra("email",email);
-                intent.putExtra("country",country);
-                setResult(20,intent);
-                finish();
+            if(name!=null&&email!=null&&country!=null){
+                if(!name.isEmpty()&&!email.isEmpty()&&!country.isEmpty()){
+                    Intent intent = new Intent();
+                    intent.putExtra("name",name);
+                    intent.putExtra("email",email);
+                    intent.putExtra("country",country);
+                    setResult(20,intent);
+                    finish();
+                }
             }
             else{
                 Toast.makeText(context, "Fill all details", Toast.LENGTH_LONG).show();
