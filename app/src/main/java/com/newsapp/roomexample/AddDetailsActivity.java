@@ -1,42 +1,55 @@
 package com.newsapp.roomexample;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.textfield.TextInputEditText;
+import com.newsapp.roomexample.databinding.ActivityAddDetailsBinding;
 
 public class AddDetailsActivity extends AppCompatActivity {
-    private TextInputEditText etName, etEmail, etCountry;
+    private ActivityAddDetailsBinding activityAddDetailsBinding;
+    private AddDetialsActivityClickHandler handlers;
+    private Student student;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_details);
-        MaterialToolbar toolbar=findViewById(R.id.toolbarDetails);
-        setSupportActionBar(toolbar);
-        etName=findViewById(R.id.etName);
-        etEmail=findViewById(R.id.etEmail);
-        etCountry=findViewById(R.id.etCountry);
+
+        activityAddDetailsBinding= DataBindingUtil.setContentView(this,R.layout.activity_add_details);
+        handlers=new AddDetialsActivityClickHandler(this);
+        activityAddDetailsBinding.setClickHandler(handlers);
+
+        student=new Student();
+        activityAddDetailsBinding.setStudent(student);
+
     }
 
-    public void submitFunction(View view) {
-        String name=etName.getText().toString();
-        String email=etEmail.getText().toString();
-        String country=etCountry.getText().toString();
-        if(!name.isEmpty()&&!email.isEmpty()&&!country.isEmpty()){
-            Intent intent = new Intent();
-            intent.putExtra("name",name);
-            intent.putExtra("email",email);
-            intent.putExtra("country",country);
-            setResult(20,intent);
-            finish();
+    public class AddDetialsActivityClickHandler{
+        private Context context;
+
+        public AddDetialsActivityClickHandler(Context context) {
+            this.context = context;
         }
-        else{
-            Toast.makeText(this, "Fill all details", Toast.LENGTH_LONG).show();
+
+        public void submitClickHandler(View view){
+            String name=student.getName();
+            String email=student.getEmail();
+            String country=student.getCountry();
+            if(!name.isEmpty()&&!email.isEmpty()&&!country.isEmpty()){
+                Intent intent = new Intent();
+                intent.putExtra("name",name);
+                intent.putExtra("email",email);
+                intent.putExtra("country",country);
+                setResult(20,intent);
+                finish();
+            }
+            else{
+                Toast.makeText(context, "Fill all details", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

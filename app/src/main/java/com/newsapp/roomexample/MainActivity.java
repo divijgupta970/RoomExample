@@ -3,12 +3,14 @@ package com.newsapp.roomexample;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.view.View;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.newsapp.roomexample.databinding.ActivityMainBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,12 +31,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private StudentsAdapter adapter;
     private StudentsDatabase database;
+    private MainActivityClickHandler handlers;
+    private ActivityMainBinding activityMainBinding;
     private static final int REQUESTCODE=10;
     private static final int RESULTCODE=20;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        activityMainBinding= DataBindingUtil.setContentView(this,R.layout.activity_main);
+        handlers=new MainActivityClickHandler(this);
+        activityMainBinding.setClickHandler(handlers);
 
         adapter=new StudentsAdapter(studentList,getApplicationContext());
 
@@ -65,15 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
         MaterialToolbar toolbar=findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab=findViewById(R.id.fabMain);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(new Intent(MainActivity.this,AddDetailsActivity.class),REQUESTCODE);
-            }
-        });
-
     }
 
     @Override
@@ -128,6 +127,17 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Student... students) {
             database.getStudentDAO().deleteStudent(students[0]);
             return null;
+        }
+    }
+    public class MainActivityClickHandler{
+        private Context context;
+
+        public MainActivityClickHandler(Context context) {
+            this.context = context;
+        }
+
+        public void onFABClicked(View view){
+            startActivityForResult(new Intent(MainActivity.this,AddDetailsActivity.class),REQUESTCODE);
         }
     }
 }
