@@ -1,5 +1,11 @@
 package com.newsapp.roomexample;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,17 +14,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.View;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.newsapp.roomexample.adapter.StudentsAdapter;
 import com.newsapp.roomexample.databinding.ActivityMainBinding;
+import com.newsapp.roomexample.db.Student;
+import com.newsapp.roomexample.db.StudentsDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,11 +27,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class MainActivity extends AppCompatActivity {
     private List<Student> studentList=new ArrayList<>();
     private RecyclerView recyclerView;
     private StudentsAdapter adapter;
+
+    @Inject
     private StudentsDatabase database;
+
     private MainActivityClickHandler handlers;
     private ActivityMainBinding activityMainBinding;
     private static final int REQUESTCODE=10;
@@ -68,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        database= Room.databaseBuilder(getApplicationContext(),StudentsDatabase.class,"StudentsDB").build();
+        App.getApp().getStudentAppComponent().inject(this);
+
         new GetAllStudentsAsyncTask().execute();
 
         MaterialToolbar toolbar=findViewById(R.id.toolbarMain);

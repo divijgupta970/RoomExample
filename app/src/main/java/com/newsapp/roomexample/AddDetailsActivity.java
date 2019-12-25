@@ -1,7 +1,6 @@
 package com.newsapp.roomexample;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.newsapp.roomexample.databinding.ActivityAddDetailsBinding;
+import com.newsapp.roomexample.db.Student;
 
 public class AddDetailsActivity extends AppCompatActivity {
     private ActivityAddDetailsBinding activityAddDetailsBinding;

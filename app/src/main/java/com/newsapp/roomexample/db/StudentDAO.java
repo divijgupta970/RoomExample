@@ -1,4 +1,4 @@
-package com.newsapp.roomexample;
+package com.newsapp.roomexample.db;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

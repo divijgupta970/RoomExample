@@ -1,16 +1,16 @@
-package com.newsapp.roomexample;
+package com.newsapp.roomexample.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.newsapp.roomexample.R;
 import com.newsapp.roomexample.databinding.CardViewMainBinding;
+import com.newsapp.roomexample.db.Student;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
     @Override
     public StudentsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        CardViewMainBinding cardViewMainBinding= DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.card_view_main, parent, false);
+        CardViewMainBinding cardViewMainBinding= DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.card_view_main, parent, false);
         return new StudentsViewHolder(cardViewMainBinding);
     }
 

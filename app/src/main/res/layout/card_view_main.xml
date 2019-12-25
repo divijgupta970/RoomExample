@@ -3,7 +3,7 @@
     <data>
         <variable
             name="student"
-            type="com.newsapp.roomexample.Student" />
+            type="com.newsapp.roomexample.db.Student" />
     </data>
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"

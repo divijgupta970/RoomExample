@@ -8,7 +8,7 @@
             type="com.newsapp.roomexample.AddDetailsActivity.AddDetialsActivityClickHandler" />
         <variable
             name="student"
-            type="com.newsapp.roomexample.Student" />
+            type="com.newsapp.roomexample.db.Student" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:tools="http://schemas.android.com/tools"
